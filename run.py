@@ -25,6 +25,20 @@ while True:
               "random location from all over the world!")
         break
     else:
-        print("Username should contain 3 to 16 alphabetical characters only. Please try again.")
+        print("Username should contain 3 to 16 alphabetical characters only.")
 
-        
+current_city = "Zwickau"
+
+
+class Question:
+    def __init__(self, question, answer):
+        self.question = question
+        self.answer = answer
+
+
+weather_question = [
+    "How is the weather for the day in:" + current_city +
+    "(1.) Sunny\n(2.) Mostly Sunny\n(3.) Mostly Cloudy\n(4.) Overcast",
+    "How warm is it for the day in:" + current_city +
+    "(1.) less than 10°C\n(2.) 10°C-20°C\n(3.) 20°C-30°C\n(4.) more than 30°C"
+    ]
