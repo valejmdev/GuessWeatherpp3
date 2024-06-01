@@ -5,6 +5,7 @@
 print("Welcome to the WeaterGuesser!")
 
 
+# Validation Rules for the username
 def validate_username(username):
     if not username.isalpha():
         return False
@@ -13,14 +14,17 @@ def validate_username(username):
     return True
 
 
-username = input("Enter your username (4-16 alphabetical characters): ")
+# Validating the username
+while True:
+    username = input("Enter your username (4-16 alphabetical characters): ")
 
-
-# Validate the username
-if validate_username(username):
-    print("Hello, " + username + "! "
-          "Welcome again to the WeatherGuesser. "
-          "Following you will guess the weather in a "
-          "random location from all over the world!")
-else:
-    print("Username should contain 4 to 16 alphabetical characters only.")
+    if validate_username(username):
+        print("Hello, " + username + "! "
+              "Welcome again to the WeatherGuesser. "
+              "Following you will guess the weather in a "
+              "random location from all over the world!")
+        break
+    else:
+        print("Username should contain 4 to 16 alphabetical characters only.")
+        username = input("Enter your username (4-16 alphabetical characters):")
+        
