@@ -16,7 +16,7 @@ def validate_username(username):
 
 # Validating the username
 while True:
-    username = input("Enter your username (4-16 alphabetical characters): ")
+    username = input("Enter your username (3-16 alphabetical characters): ")
 
     if validate_username(username):
         print("Hello, " + username + "! "
@@ -25,6 +25,6 @@ while True:
               "random location from all over the world!")
         break
     else:
-        print("Username should contain 4 to 16 alphabetical characters only.")
-        username = input("Enter your username (4-16 alphabetical characters):")
+        print("Username should contain 3 to 16 alphabetical characters only. Please try again.")
+
         
