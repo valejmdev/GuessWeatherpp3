@@ -4,9 +4,23 @@
 """This weather guessing game with random locations"""
 print("Welcome to the WeaterGuesser!")
 
-name = input("Enter your name: ")
 
-print("Hello, " + name + "! "
-      "Welcome again to the WeatherGuesser. "
-      "Following you will guess the weather in a "
-      "random location from all over the world!")
+def validate_username(username):
+    if not username.isalpha():
+        return False
+    if len(username) < 3 or len(username) > 16:
+        return False
+    return True
+
+
+username = input("Enter your username (4-16 alphabetical characters): ")
+
+
+# Validate the username
+if validate_username(username):
+    print("Hello, " + username + "! "
+          "Welcome again to the WeatherGuesser. "
+          "Following you will guess the weather in a "
+          "random location from all over the world!")
+else:
+    print("Username should contain 4 to 16 alphabetical characters only.")
