@@ -47,9 +47,7 @@ url = f"{root_url}appid={api_key}&q={city_name}"
 # Sending a get request at the url
 r = requests.get(url)
 
-# Displaying the json weather data returned by the api
-print(r.json())
-
+# Saving the data returned by the API
 data = r.json()
 
 # Checking if there is no error and the status code is 200
@@ -87,6 +85,15 @@ questions_validation = [
     Question(weather_prompt[0], "2"),
     Question(weather_prompt[1], "3")
 ]
+
+
+def guess_validation(prompt):
+    while True:
+        user_input = input(prompt)
+        if user_input.isdigit() and user_input in ("1", "2", "3", "4"):
+            return user_input
+        else:
+            print("Please enter a number from 1-4")
 
 
 # Function of the guesser game
