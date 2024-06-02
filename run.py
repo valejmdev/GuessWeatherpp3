@@ -52,14 +52,17 @@ data = r.json()
 
 # Checking if there is no error and the status code is 200
 if data['cod'] == 200:
-    # Getting the temperature form the json data
-    temp = data['main']['temp']
+    # Getting the raw temperature in Kelvin form the json data
+    temp_kelvin = data['main']['temp']
+    # Converting temperatur from Kelvin to Celsius
+    temp_celcius = temp_kelvin - 273.15
+
     # Getting the description of the weather from the json data
     descr = data['weather'][0]['description']
 
     print(f"City Name: {city_name}")
     print(f"Weather Condition is {descr}")
-    print(f"The temperatur is: {temp}")
+    print(f"The temperatur is: {temp_celcius: .2f}°C")
 
 else:
     print("Something went wrong... Please try again...")
