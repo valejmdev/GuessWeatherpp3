@@ -4,6 +4,8 @@
 """This weather guessing game with random locations"""
 # Import for required libaries
 import requests
+import pandas as pd
+import random
 
 # OpenWeather.org API Key for Realtime Information
 api_key = "b092090963bc7750c270ab36f9bc42e9"
@@ -13,6 +15,13 @@ root_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 # Welcome Message
 print("Welcome to the WeaterGuesser!")
+
+
+def get_random_city():
+    df = pd.read_csv("cities.csv")
+    city_column = "City"
+    random_city = random.choice(df[city_column].tolist())
+    return random_city
 
 
 # Validation Rules for the username
@@ -39,7 +48,7 @@ while True:
 
 
 # City name input for testing
-city_name = input("What city do you want to guess for? ")
+city_name = get_random_city()
 
 # Building url for testing api call
 url = f"{root_url}appid={api_key}&q={city_name}"
@@ -71,10 +80,6 @@ if data['cod'] == 200:
     else:
         weather_condition = "Thunderstorm"
 
-    print(f"City Name: {city_name}")
-    print(f"Weather Condition is {weather_condition}")
-    print(f"The temperatur is: {temp_celcius: .2f}°C")
-
 else:
     print("Something went wrong... Please try again...")
 
@@ -97,8 +102,8 @@ weather_prompt = [
 
 # Correct answer validation
 questions_validation = [
-    Question(weather_prompt[0], "2"),
-    Question(weather_prompt[1], "3")
+    Question(weather_prompt[0], None),
+    Question(weather_prompt[1], None)
 ]
 
 
@@ -115,9 +120,10 @@ def guess_validation(prompt):
 # Function of the guesser game
 def run_guesser(questions_validation):
     score = 0
-    for question in questions_validation:
-        answer = guess_validation(question.question)
-        if answer == str(question.answer):
+    for i, question in enumerate(questions_validation, 1):
+        user_answer = input(f"Question {i}: {question.question}"
+                            "\nEnter your answer: ")
+        if user_answer == str(question.answer):
             score += 1
     print("You got " + str(score) + '/' + str(len(questions_validation)) +
           " correct")
