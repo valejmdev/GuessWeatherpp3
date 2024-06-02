@@ -2,7 +2,14 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 """This weather guessing game with random locations"""
+# Import for required libaries
+import requests
 
+# OpenWeather.org API Key for Realtime Information
+api_key = "b092090963bc7750c270ab36f9bc42e9"
+
+# Base url for the OpenWeather API
+root_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 # Welcome Message
 print("Welcome to the WeaterGuesser!")
