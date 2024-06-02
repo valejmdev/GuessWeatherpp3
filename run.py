@@ -102,6 +102,7 @@ questions_validation = [
 ]
 
 
+# Validation for the answer given by the user
 def guess_validation(prompt):
     while True:
         user_input = input(prompt)
@@ -115,8 +116,8 @@ def guess_validation(prompt):
 def run_guesser(questions_validation):
     score = 0
     for question in questions_validation:
-        answer = input(question.question)
-        if answer == question.answer:
+        answer = guess_validation(question.question)
+        if answer == str(question.answer):
             score += 1
     print("You got " + str(score) + '/' + str(len(questions_validation)) +
           " correct")
