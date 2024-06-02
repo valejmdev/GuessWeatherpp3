@@ -42,7 +42,7 @@ while True:
 city_name = input("What city do you want to guess for? ")
 
 # Building url for testing api call
-url = f"{root_url}?q={city_name}&appid={api_key}"
+url = f"{root_url}appid={api_key}&q={city_name}"
 
 # Sending a get request at the url
 r = requests.get(url)
@@ -60,8 +60,19 @@ if data['cod'] == 200:
     # Getting the description of the weather from the json data
     descr = data['weather'][0]['description']
 
+    if "clear sky" in descr:
+        weather_condition = "Sunny"
+    elif "few clouds" in descr or "scattered clouds" in descr:
+        weather_condition = "Cloudy"
+    elif "broken" in descr or "shower rain" in descr:
+        weather_condition = "Overcast"
+    elif "rain" in descr or "snow" in descr:
+        weather_condition = "Rain/Snow"
+    else:
+        weather_condition = "Thunderstorm"
+
     print(f"City Name: {city_name}")
-    print(f"Weather Condition is {descr}")
+    print(f"Weather Condition is {weather_condition}")
     print(f"The temperatur is: {temp_celcius: .2f}°C")
 
 else:
@@ -78,9 +89,10 @@ class Question:
 # Array for questions
 weather_prompt = [
     "How is the weather for the day in:" + city_name +
-    "\n(1) Sunny\n(2) Mostly Sunny\n(3) Mostly Cloudy\n(4) Overcast\n",
+    "\n(1) Sunny\n(2) Cloudy\n(3) Overcast\n(4) Rain/Snow\n(5) Thunderstorm",
     "How warm is it for the day in:" + city_name +
-    "\n(1) less than 10°C\n(2) 10°C-20°C\n(3) 20°C-30°C\n(4) more than 30°C\n"
+    "\n(1)less than 0°C\n(2) 5-10°C\n(2) 10°C-20°C\n(3) 20°C-30°C\n"
+    "(4) more than 30°C\n"
     ]
 
 # Correct answer validation
@@ -93,10 +105,10 @@ questions_validation = [
 def guess_validation(prompt):
     while True:
         user_input = input(prompt)
-        if user_input.isdigit() and user_input in ("1", "2", "3", "4"):
+        if user_input.isdigit() and user_input in ("1", "2", "3", "4", "5"):
             return user_input
         else:
-            print("Please enter a number from 1-4")
+            print("Please enter a number from 1-5")
 
 
 # Function of the guesser game
