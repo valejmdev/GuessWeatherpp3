@@ -42,7 +42,7 @@ while True:
 city_name = input("What city do you want to guess for? ")
 
 # Building url for testing api call
-url = f"{root_url}appid={api_key}&q={city_name}"
+url = f"{root_url}?q={city_name}&appid={api_key}"
 
 # Sending a get request at the url
 r = requests.get(url)
