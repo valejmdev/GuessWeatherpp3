@@ -120,6 +120,17 @@ def guess_validation(prompt):
 # Function of the guesser game
 def run_guesser(questions_validation):
     score = 0
+    if weather_condition == "Sunny":
+        question.answer = 1
+    elif weather_condition == "Cloudy":
+        question.answer = 2
+    elif weather_condition == "Overcast":
+        question.answer = 3
+    elif weather_condition == "Rain/Snow":
+        question.answer = 4
+    elif weather_condition == "Thunderstorm":
+        question.answer = 5
+
     for i, question in enumerate(questions_validation, 1):
         user_answer = input(f"Question {i}: {question.question}"
                             "\nEnter your answer: ")
