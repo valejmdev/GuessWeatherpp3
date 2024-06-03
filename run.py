@@ -112,8 +112,8 @@ weather_prompt = [
 
 # Correct answer validation
 questions_validation = [
-    Question(weather_prompt[0], None),
-    Question(weather_prompt[1], None)
+    Question(weather_prompt[0], weather_condition),
+    Question(weather_prompt[1], temperature_range)
 ]
 
 
