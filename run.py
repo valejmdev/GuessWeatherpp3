@@ -110,9 +110,9 @@ class Question:
 if city_name and weather_condition and temperature_range:
     # Array for questions
     weather_prompt = [
-        "How is the weather for the day in:" + city_name +
+        "How is the weather for the day in: " + city_name +
         "\n(1) Sunny\n(2) Cloudy\n(3) Overcast\n(4) Rain/Snow\n(5) Thunderstorm",
-        "How warm is it for the day in:" + city_name +
+        "How warm is it for the day in: " + city_name +
         "\n(1)less than 0°C\n(2) 0-10°C\n(2) 10°C-20°C\n(3) 20°C-30°C\n"
         "(5) more than 30°C\n"
         ]
