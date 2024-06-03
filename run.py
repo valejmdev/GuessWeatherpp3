@@ -70,16 +70,26 @@ if data['cod'] == 200:
     descr = data['weather'][0]['description']
 
     if "clear sky" in descr:
-        weather_condition = "Sunny"
+        weather_condition = "1"
     elif "few clouds" in descr or "scattered clouds" in descr:
-        weather_condition = "Cloudy"
+        weather_condition = "2"
     elif "broken" in descr or "shower rain" in descr:
-        weather_condition = "Overcast"
+        weather_condition = "3"
     elif "rain" in descr or "snow" in descr:
-        weather_condition = "Rain/Snow"
+        weather_condition = "4"
     else:
-        weather_condition = "Thunderstorm"
+        weather_condition = "5"
 
+    if temp_celcius < 0:
+        temperature_range = "1"
+    elif temp_celcius < 10:
+        temperature_range = "2"
+    elif temp_celcius < 20:
+        temperature_range = "3"
+    elif temp_celcius < 30:
+        temperature_range = "4"
+    else:
+        temperature_range = "5"
 else:
     print("Something went wrong... Please try again...")
 
@@ -96,8 +106,8 @@ weather_prompt = [
     "How is the weather for the day in:" + city_name +
     "\n(1) Sunny\n(2) Cloudy\n(3) Overcast\n(4) Rain/Snow\n(5) Thunderstorm",
     "How warm is it for the day in:" + city_name +
-    "\n(1)less than 0°C\n(2) 5-10°C\n(2) 10°C-20°C\n(3) 20°C-30°C\n"
-    "(4) more than 30°C\n"
+    "\n(1)less than 0°C\n(2) 0-10°C\n(2) 10°C-20°C\n(3) 20°C-30°C\n"
+    "(5) more than 30°C\n"
     ]
 
 # Correct answer validation
