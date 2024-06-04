@@ -4,7 +4,7 @@
 """This weather guessing game with random locations"""
 # Import for required libaries
 import requests
-import pandas as pd
+from pandas import read_csv
 import random
 
 # OpenWeather.org API Key for Realtime Information
@@ -13,12 +13,11 @@ api_key = "b092090963bc7750c270ab36f9bc42e9"
 # Base url for the OpenWeather API
 root_url = "http://api.openweathermap.org/data/2.5/weather?"
 
-# Welcome Message
-print("Welcome to the WeaterGuesser!")
+
 
 
 def get_random_city():
-    df = pd.read_csv("cities.csv")
+    df = read_csv("cities.csv")
     city_column = "City"
     random_city = random.choice(df[city_column].tolist())
     return random_city
@@ -34,7 +33,9 @@ def validate_username(username):
 
 
 # Validating the username
-while True:
+def start_guesser():
+    # Welcome Message
+    print("Welcome to the WeaterGuesser!")
     username = input("Enter your username (3-16 alphabetical characters): ")
 
     if validate_username(username):
@@ -42,7 +43,7 @@ while True:
               "Welcome again to the WeatherGuesser. "
               "Following you will guess the weather in a "
               "random location from all over the world!")
-        break
+        return 
     else:
         print("Username should contain 3 to 16 alphabetical characters only.")
 
@@ -98,25 +99,25 @@ def api_call():
         return None, None, None
 
     
-
-weather_condition, temperature_range, city_name = api_call()
-
 # Class for questions
 class Question:
     def __init__(self, question, answer):
         self.question = question
         self.answer = answer
 
-if city_name and weather_condition and temperature_range:
-    # Array for questions
-    weather_prompt = [
-        "How is the weather for the day in: " + city_name +
-        "\n(1) Sunny\n(2) Cloudy\n(3) Overcast\n(4) Rain/Snow\n(5) Thunderstorm",
-        "How warm is it for the day in: " + city_name +
-        "\n(1)less than 0°C\n(2) 0-10°C\n(2) 10°C-20°C\n(3) 20°C-30°C\n"
-        "(5) more than 30°C\n"
-        ]
 
+def question_creator():
+    city_name and weather_condition and temperature_range:
+        # Array for questions
+        weather_prompt = [
+            "How is the weather for the day in: " + city_name +
+            "\n(1) Sunny\n(2) Cloudy\n(3) Overcast\n(4) Rain/Snow\n(5) Thunderstorm",
+            "How warm is it for the day in: " + city_name +
+            "\n(1)less than 0°C\n(2) 0-10°C\n(2) 10°C-20°C\n(3) 20°C-30°C\n"
+            "(5) more than 30°C\n"
+            ]
+
+def question_answer_validation():
     # Correct answer validation
     questions_validation = [
         Question(weather_prompt[0], weather_condition),
@@ -124,29 +125,38 @@ if city_name and weather_condition and temperature_range:
     ]
 
 
-    # Validation for the answer given by the user
-    def guess_validation(prompt):
-        while True:
-            user_input = input(prompt)
-            if user_input.isdigit() and user_input in ("1", "2", "3", "4", "5"):
-                return user_input
-            else:
-                print("Please enter a number from 1-5")
+# Validation for the answer given by the user
+def guess_input_validation(prompt):
+    while True:
+        user_input = input(prompt)
+        if user_input.isdigit() and user_input in ("1", "2", "3", "4", "5"):
+            return user_input
+        else:
+            print("Please enter a number from 1-5")
 
 
     # Function of the guesser game
-    def run_guesser(questions_validation):
-        score = 0
-        for i, question in enumerate(questions_validation, 1):
-            user_answer = input(f"Question {i}: {question.question}"
-                                "\nEnter your answer: ")
-            if user_answer == str(question.answer):
-                score += 1
-        print("You got " + str(score) + '/' + str(len(questions_validation)) +
-            " correct")
+def run_guesser(questions_validation):
+    score = 0
+    for i, question in enumerate(questions_validation, 1):
+        user_answer = input(f"Question {i}: {question.question}"
+                            "\nEnter your answer: ")
+        if user_answer == str(question.answer):
+            score += 1
+    print("You got " + str(score) + '/' + str(len(questions_validation)) +
+        " correct")
 
 
-    # Calling guesser game function
-    run_guesser(questions_validation)
-else:
-    print("Could not retrieve weather data. Exiting the game.")
+# Calling guesser game function
+def main():
+    start_guesser()
+    weather_condition, temperature_range, city_name = api_call()
+    if city_name and weather_condition and temperature_range:
+        questions_validation = create_questions(weather_condition, temperature_range, city_name)
+        run_guesser(questions_validation)
+    else:
+        print("Could not retrieve weather data. Exiting the game.")
+
+# Run the main function
+if __name__ == "__main__":
+    main()
