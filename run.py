@@ -115,13 +115,15 @@ def question_creator(city_name, weather_condition, temperature_range):
             "\n(1)less than 0°C\n(2) 0-10°C\n(2) 10°C-20°C\n(3) 20°C-30°C\n"
             "(5) more than 30°C\n"
             ]
+        
 
-def question_answer_validation():
-    # Correct answer validation
-    questions_validation = [
-        Question(weather_prompt[0], weather_condition),
-        Question(weather_prompt[1], temperature_range)
-    ]
+        # Correct answer validation
+        questions_validation = [
+            Question(weather_prompt[0], weather_condition),
+            Question(weather_prompt[1], temperature_range)
+        ]
+
+        return questions_validation
 
 
 # Validation for the answer given by the user
@@ -138,7 +140,7 @@ def guess_input_validation(prompt):
 def run_guesser(questions_validation):
     score = 0
     for i, question in enumerate(questions_validation, 1):
-        user_answer = input(f"Question {i}: {question.question}"
+        user_answer = guess_input_validation(f"Question {i}: {question.question}"
                             "\nEnter your answer: ")
         if user_answer == str(question.answer):
             score += 1
@@ -151,7 +153,7 @@ def main():
     start_guesser()
     weather_condition, temperature_range, city_name = api_call()
     if city_name and weather_condition and temperature_range:
-        questions_validation = create_questions(weather_condition, temperature_range, city_name)
+        questions_validation = question_creator(weather_condition, temperature_range, city_name)
         run_guesser(questions_validation)
     else:
         print("Could not retrieve weather data. Exiting the game.")
