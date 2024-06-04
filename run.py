@@ -50,6 +50,8 @@ def start_guesser():
 def api_call():
     # City name input for testing
     city_name = get_random_city()
+    if city_name is None:
+        return None, None, None
 
     # Building url for testing api call
     url = f"{root_url}appid={api_key}&q={city_name}"
