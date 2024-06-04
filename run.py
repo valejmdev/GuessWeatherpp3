@@ -14,8 +14,6 @@ api_key = "b092090963bc7750c270ab36f9bc42e9"
 root_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 
-
-
 def get_random_city():
     df = read_csv("cities.csv")
     city_column = "City"
@@ -36,16 +34,18 @@ def validate_username(username):
 def start_guesser():
     # Welcome Message
     print("Welcome to the WeaterGuesser!")
-    username = input("Enter your username (3-16 alphabetical characters): ")
+    while True:
+        username = input("Enter your username (3-16 alphabetical characters): ")
 
-    if validate_username(username):
-        print("Hello, " + username + "! "
-              "Welcome again to the WeatherGuesser. "
-              "Following you will guess the weather in a "
-              "random location from all over the world!")
-        return 
-    else:
-        print("Username should contain 3 to 16 alphabetical characters only.")
+        if validate_username(username):
+            print("Hello, " + username + "! "
+                "Welcome again to the WeatherGuesser. "
+                "Following you will guess the weather in a "
+                "random location from all over the world!")
+            return 
+        else:
+            print("Username should contain 3 to 16 alphabetical characters only.")
+
 
 def api_call():
     # City name input for testing
@@ -106,8 +106,7 @@ class Question:
         self.answer = answer
 
 
-def question_creator():
-    city_name and weather_condition and temperature_range:
+def question_creator(city_name, weather_condition, temperature_range):
         # Array for questions
         weather_prompt = [
             "How is the weather for the day in: " + city_name +
