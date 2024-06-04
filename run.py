@@ -6,6 +6,7 @@
 import requests
 from pandas import read_csv
 import random
+import time
 
 # OpenWeather.org API Key for Realtime Information
 api_key = "b092090963bc7750c270ab36f9bc42e9"
@@ -100,7 +101,7 @@ def api_call():
         print("Something went wrong... Please try again...")
         return None, None, None
 
-    
+
 # Class for questions
 class Question:
     def __init__(self, question, answer):
@@ -114,7 +115,7 @@ def question_creator(city_name, weather_condition, temperature_range):
             "How is the weather for the day in: " + city_name +
             "\n(1) Sunny\n(2) Cloudy\n(3) Overcast\n(4) Rain/Snow\n(5) Thunderstorm",
             "How warm is it for the day in: " + city_name +
-            "\n(1)less than 0°C\n(2) 0-10°C\n(2) 10°C-20°C\n(3) 20°C-30°C\n"
+            "\n(1)less than 0°C\n(2) 0-10°C\n(3) 10°C-20°C\n(4) 20°C-30°C\n"
             "(5) more than 30°C\n"
             ]
         
@@ -154,8 +155,10 @@ def run_guesser(questions_validation):
 def main():
     start_guesser()
     weather_condition, temperature_range, city_name = api_call()
+    print("Please wait... Gathering data.")
+    time.sleep(3)
     if city_name and weather_condition and temperature_range:
-        questions_validation = question_creator(weather_condition, temperature_range, city_name)
+        questions_validation = question_creator(city_name, weather_condition, temperature_range)
         run_guesser(questions_validation)
     else:
         print("Could not retrieve weather data. Exiting the game.")
