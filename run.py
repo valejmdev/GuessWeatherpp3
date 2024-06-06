@@ -153,25 +153,21 @@ def run_guesser(questions_validation):
 def end_game():
     while True:
                 print("\nWhat would you like to do next?")
-                print("1. Play again")
-                print("2. Reset game")
-                print("3. Exit")
-                choice = input("Enter your choice (1, 2, or 3): ")
+                print("1. Reset game")
+                print("2. Exit")
+                choice = input("Enter your choice (1 or 2):")
                 
                 if choice == "1":
-                    # Restart the game with the same username
-                    break
-                elif choice == "2":
                     # Reset the game by re-running the main function
                     print("Resetting game...")
                     main()
                     return
-                elif choice == "3":
+                elif choice == "2":
                     # Exit the game
                     print("Exiting the game. Goodbye!")
                     return
                 else:
-                    print("Invalid choice. Please enter 1, 2, or 3.")
+                    print("Invalid choice. Please enter 1 or 2.")
 
 
 # Calling guesser game function
@@ -194,7 +190,7 @@ def main():
     
     print(f"\nGame Over! {username}, your total score is: {total_score}/{rounds * 2}")
     end_game()
-    
+
 # Run the main function
 if __name__ == "__main__":
     main()
