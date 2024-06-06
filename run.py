@@ -143,26 +143,58 @@ def guess_input_validation(prompt):
 def run_guesser(questions_validation):
     score = 0
     for i, question in enumerate(questions_validation, 1):
-        user_answer = guess_input_validation(f"Question {i}: {question.question}"
-                            "\nEnter your answer: ")
+        user_answer = guess_input_validation(f"Question {i}: {question.question}\nEnter your answer: ")
         if user_answer == str(question.answer):
             score += 1
-    print("You got " + str(score) + '/' + str(len(questions_validation)) +
-        " correct")
+    print("You got " + str(score) + '/' + str(len(questions_validation)) + " correct")
+    return score  # Return the score for the round
+
+
+def end_game():
+    while True:
+                print("\nWhat would you like to do next?")
+                print("1. Play again")
+                print("2. Reset game")
+                print("3. Exit")
+                choice = input("Enter your choice (1, 2, or 3): ")
+                
+                if choice == "1":
+                    # Restart the game with the same username
+                    break
+                elif choice == "2":
+                    # Reset the game by re-running the main function
+                    print("Resetting game...")
+                    main()
+                    return
+                elif choice == "3":
+                    # Exit the game
+                    print("Exiting the game. Goodbye!")
+                    return
+                else:
+                    print("Invalid choice. Please enter 1, 2, or 3.")
 
 
 # Calling guesser game function
 def main():
-    start_guesser()
-    weather_condition, temperature_range, city_name = api_call()
-    print("Please wait... Gathering data.")
-    time.sleep(3)
-    if city_name and weather_condition and temperature_range:
-        questions_validation = question_creator(city_name, weather_condition, temperature_range)
-        run_guesser(questions_validation)
-    else:
-        print("Could not retrieve weather data. Exiting the game.")
-
+    username = start_guesser()
+    total_score = 0
+    rounds = 3
+    for round_number in range(1, rounds + 1):
+        print(f"\nRound {round_number}/{rounds}")
+        weather_condition, temperature_range, city_name = api_call()
+        print("Please wait... Gathering data.")
+        time.sleep(3)
+        if city_name and weather_condition and temperature_range:
+            questions_validation = question_creator(city_name, weather_condition, temperature_range)
+            round_score = run_guesser(questions_validation)
+            if round_score is not None: 
+                total_score += round_score
+        else:
+            print("Could not retrieve weather data for this round.")
+    
+    print(f"\nGame Over! {username}, your total score is: {total_score}/{rounds * 2}")
+    end_game()
+    
 # Run the main function
 if __name__ == "__main__":
     main()
