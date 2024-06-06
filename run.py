@@ -15,11 +15,15 @@ api_key = "b092090963bc7750c270ab36f9bc42e9"
 root_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 
-def get_random_city():
+def get_random_city_and_country():
     df = read_csv("cities.csv")
-    city_column = "City"
-    random_city = random.choice(df[city_column].tolist())
-    return random_city
+    
+    random_row = df.sample(n=1).iloc[0]
+    
+    random_city = random_row['City']
+    random_country = random_row['Country']
+    
+    return random_city, random_country
 
 
 # Validation Rules for the username
@@ -50,10 +54,10 @@ def start_guesser():
 
 def api_call():
     # City name input for testing
-    city_name = get_random_city()
-    if city_name is None:
-        return None, None, None
-
+    city_name, country_name = get_random_city_and_country()
+    if city_name is None or country_name is None:
+        return None, None, None, None
+    
     # Building url for testing api call
     url = f"{root_url}appid={api_key}&q={city_name}"
 
@@ -95,7 +99,7 @@ def api_call():
         else:
             temperature_range = "5"
         
-        return weather_condition, temperature_range, city_name
+        return weather_condition, temperature_range, city_name, country_name
     
     else:
         print("Something went wrong... Please try again...")
@@ -109,12 +113,12 @@ class Question:
         self.answer = answer
 
 
-def question_creator(city_name, weather_condition, temperature_range):
+def question_creator(city_name, country_name, weather_condition, temperature_range):
         # Array for questions
         weather_prompt = [
-            "How is the weather for the day in: " + city_name +
+            "How is the weather for the day in: " + city_name +", " + country_name +
             "\n(1) Sunny\n(2) Cloudy\n(3) Overcast\n(4) Rain/Snow\n(5) Thunderstorm",
-            "How warm is it for the day in: " + city_name +
+            "How warm is it for the day in: " + city_name +", " + country_name +
             "\n(1)less than 0°C\n(2) 0-10°C\n(3) 10°C-20°C\n(4) 20°C-30°C\n"
             "(5) more than 30°C\n"
             ]
@@ -177,11 +181,11 @@ def main():
     rounds = 3
     for round_number in range(1, rounds + 1):
         print(f"\nRound {round_number}/{rounds}")
-        weather_condition, temperature_range, city_name = api_call()
+        weather_condition, temperature_range, city_name, country_name = api_call()
         print("Please wait... Gathering data.")
         time.sleep(3)
         if city_name and weather_condition and temperature_range:
-            questions_validation = question_creator(city_name, weather_condition, temperature_range)
+            questions_validation = question_creator(city_name, country_name, weather_condition, temperature_range)
             round_score = run_guesser(questions_validation)
             if round_score is not None: 
                 total_score += round_score
