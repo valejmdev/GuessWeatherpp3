@@ -7,7 +7,7 @@ import requests
 import random
 import time
 from colorama import Fore, Style, init
-init(convert=True)
+init(autoreset=True)
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -68,7 +68,7 @@ def start_guesser():
                 "Welcome again to the WeatherGuesser. "
                 "Following you will guess the weather in a "
                 "random location from all over the world!")
-            return 
+            return username
         else:
             print(Fore.RED + "The username should contain 3 to 16 alphabetical characters only." + Style.RESET_ALL)
 
@@ -172,8 +172,15 @@ def run_guesser(questions_validation):
         if user_answer == str(question.answer):
             score += 1
     print(Fore.GREEN +"You got " + str(score) + '/' + str(len(questions_validation)) + " correct" + Style.RESET_ALL)
-    return score  # Return the score for the round
+    return score 
 
+def loading_animation(duration):
+    for _ in range(duration * 10):  
+        print("Loading", end="")
+        for _ in range(3):  
+            print(".", end="")
+            time.sleep(0.1)  
+        print("\r", end="") 
 
 def end_game():
     while True:
@@ -203,15 +210,15 @@ def main():
     for round_number in range(1, rounds + 1):
         print(f"\nRound {round_number}/{rounds}")
         weather_condition, temperature_range, city_name, country_name = api_call()
-        print("Please wait... Gathering data.")
-        time.sleep(3)
+        print(Fore.YELLOW + "Please wait... Gathering data." + Style.RESET_ALL)
+        loading_animation(2)
         if city_name and weather_condition and temperature_range:
             questions_validation = question_creator(city_name, country_name, weather_condition, temperature_range)
             round_score = run_guesser(questions_validation)
             if round_score is not None: 
                 total_score += round_score
         else:
-            print(Fore.RED + "Could not retrieve weather data for this round.")
+            print(Fore.RED + "Could not retrieve weather data for this round." + Style.RESET_ALL)
     
     print(Fore.GREEN + f"\nGame Over! {username}, your total score is: {total_score}/{rounds * 2}" + Style.RESET_ALL)
     end_game()
