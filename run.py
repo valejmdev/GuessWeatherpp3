@@ -60,7 +60,7 @@ def start_guesser():
     # Welcome Message
     print("Welcome to the WeaterGuesser!")
     while True:
-        username = input("Enter your username (3-16 alphabetical characters): ")
+        username = input("Enter your username (3-16 alphabetical characters): \n")
 
         if validate_username(username):
             print("Hello, " + username + "! "
@@ -167,7 +167,7 @@ def guess_input_validation(prompt):
 def run_guesser(questions_validation):
     score = 0
     for i, question in enumerate(questions_validation, 1):
-        user_answer = guess_input_validation(f"Question {i}: {question.question}\nEnter your answer: ")
+        user_answer = guess_input_validation(f"Question {i}: {question.question}\nEnter your answer: \n")
         if user_answer == str(question.answer):
             score += 1
     print(Fore.GREEN +"You got " + str(score) + '/' + str(len(questions_validation)) + " correct")
@@ -179,7 +179,7 @@ def end_game():
                 print("\nWhat would you like to do next?")
                 print("1. Reset game")
                 print("2. Exit")
-                choice = input("Enter your choice (1 or 2):")
+                choice = input("Enter your choice (1 or 2):\n")
                 
                 if choice == "1":
                     # Reset the game by re-running the main function
