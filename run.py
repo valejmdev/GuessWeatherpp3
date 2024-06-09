@@ -6,11 +6,12 @@
 import requests
 import random
 import time
-import colorama
 from colorama import Fore, Style, init
 init(convert=True)
 import gspread
 from google.oauth2.service_account import Credentials
+
+init()
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -69,7 +70,7 @@ def start_guesser():
                 "random location from all over the world!")
             return 
         else:
-            print(Fore.RED + "Username should contain 3 to 16 alphabetical characters only.")
+            print(Fore.RED + "The username should contain 3 to 16 alphabetical characters only." + Style.RESET_ALL)
 
 
 def api_call():
@@ -122,7 +123,7 @@ def api_call():
         return weather_condition, temperature_range, city_name, country_name
     
     else:
-        print(Fore.RED + "Something went wrong... Please try again...")
+        print(Fore.RED + "Something went wrong... Please try again..." + Style.RESET_ALL)
         return None, None, None
 
 
@@ -160,7 +161,7 @@ def guess_input_validation(prompt):
         if user_input.isdigit() and user_input in ("1", "2", "3", "4", "5"):
             return user_input
         else:
-            print(Fore.RED + "Please enter a number from 1-5")
+            print(Fore.RED + "Please enter a number from 1-5" + Style.RESET_ALL)
 
 
     # Function of the guesser game
@@ -170,7 +171,7 @@ def run_guesser(questions_validation):
         user_answer = guess_input_validation(f"Question {i}: {question.question}\nEnter your answer: \n")
         if user_answer == str(question.answer):
             score += 1
-    print(Fore.GREEN +"You got " + str(score) + '/' + str(len(questions_validation)) + " correct")
+    print(Fore.GREEN +"You got " + str(score) + '/' + str(len(questions_validation)) + " correct" + Style.RESET_ALL)
     return score  # Return the score for the round
 
 
@@ -191,7 +192,7 @@ def end_game():
                     print("Exiting the game. Goodbye!")
                     return
                 else:
-                    print(Fore.RED + "Invalid choice. Please enter 1 or 2.")
+                    print(Fore.RED + "Invalid choice. Please enter 1 or 2." + Style.RESET_ALL)
 
 
 # Calling guesser game function
@@ -212,7 +213,7 @@ def main():
         else:
             print(Fore.RED + "Could not retrieve weather data for this round.")
     
-    print(Fore.GREEN + f"\nGame Over! {username}, your total score is: {total_score}/{rounds * 2}")
+    print(Fore.GREEN + f"\nGame Over! {username}, your total score is: {total_score}/{rounds * 2}" + Style.RESET_ALL)
     end_game()
 
 # Run the main function
