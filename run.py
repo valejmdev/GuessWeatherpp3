@@ -4,7 +4,6 @@
 """This weather guessing game with random locations"""
 # Import for required libaries
 import requests
-from pandas import read_csv
 import random
 import time
 import colorama
