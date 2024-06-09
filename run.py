@@ -7,6 +7,24 @@ import requests
 from pandas import read_csv
 import random
 import time
+import colorama
+from colorama import Fore, Style, init
+init(convert=True)
+import gspread
+from google.oauth2.service_account import Credentials
+
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_Client = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_Client.open('guessweatherpp3')
+
+cities_list = SHEET.worksheet('cities_list')
 
 # OpenWeather.org API Key for Realtime Information
 api_key = "b092090963bc7750c270ab36f9bc42e9"
@@ -16,7 +34,7 @@ root_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 
 def get_random_city_and_country():
-    df = read_csv("cities.csv")
+    df = cities_list
     
     random_row = df.sample(n=1).iloc[0]
     
@@ -49,7 +67,7 @@ def start_guesser():
                 "random location from all over the world!")
             return 
         else:
-            print("Username should contain 3 to 16 alphabetical characters only.")
+            print(Fore.RED + "Username should contain 3 to 16 alphabetical characters only.")
 
 
 def api_call():
@@ -102,7 +120,7 @@ def api_call():
         return weather_condition, temperature_range, city_name, country_name
     
     else:
-        print("Something went wrong... Please try again...")
+        print(Fore.RED + "Something went wrong... Please try again...")
         return None, None, None
 
 
@@ -140,7 +158,7 @@ def guess_input_validation(prompt):
         if user_input.isdigit() and user_input in ("1", "2", "3", "4", "5"):
             return user_input
         else:
-            print("Please enter a number from 1-5")
+            print(Fore.RED + "Please enter a number from 1-5")
 
 
     # Function of the guesser game
@@ -150,7 +168,7 @@ def run_guesser(questions_validation):
         user_answer = guess_input_validation(f"Question {i}: {question.question}\nEnter your answer: ")
         if user_answer == str(question.answer):
             score += 1
-    print("You got " + str(score) + '/' + str(len(questions_validation)) + " correct")
+    print(Fore.GREEN +"You got " + str(score) + '/' + str(len(questions_validation)) + " correct")
     return score  # Return the score for the round
 
 
@@ -171,7 +189,7 @@ def end_game():
                     print("Exiting the game. Goodbye!")
                     return
                 else:
-                    print("Invalid choice. Please enter 1 or 2.")
+                    print(Fore.RED + "Invalid choice. Please enter 1 or 2.")
 
 
 # Calling guesser game function
@@ -190,9 +208,9 @@ def main():
             if round_score is not None: 
                 total_score += round_score
         else:
-            print("Could not retrieve weather data for this round.")
+            print(Fore.RED + "Could not retrieve weather data for this round.")
     
-    print(f"\nGame Over! {username}, your total score is: {total_score}/{rounds * 2}")
+    print(Fore.GREEN + f"\nGame Over! {username}, your total score is: {total_score}/{rounds * 2}")
     end_game()
 
 # Run the main function
