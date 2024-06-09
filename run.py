@@ -34,12 +34,15 @@ root_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 
 def get_random_city_and_country():
-    df = cities_list
+    data = cities_list.get_all_values()
+
+    headers = data[0]
+    rows = data[1:]
+    cities = [dict(zip(headers, row)) for row in rows]
     
-    random_row = df.sample(n=1).iloc[0]
-    
-    random_city = random_row['City']
-    random_country = random_row['Country']
+    random_city_info = random.choice(cities)
+    random_city = random_city_info['City']
+    random_country = random_city_info['Country']
     
     return random_city, random_country
 
