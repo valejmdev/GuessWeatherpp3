@@ -42,7 +42,7 @@ SORTED_LEADERBOARD = sorted(leaderboard_data, key=lambda x: x['Highscore'], reve
 ROOT_URL = "http://api.openweathermap.org/data/2.5/weather?"
 API_KEY = creds_data['openweather']['API_KEY']
 
-HELP_STRING = """In this game, you will guess the weather conditions and temperature ranges\n for random cities around the world. Here’s how you play:
+HELP_STRING = """In this game, you will guess the weather conditions and temperature ranges\nfor random cities around the world. Here’s how you play:
 
 1. **Game Rounds**:
     - The game consists of 3 rounds.
@@ -59,13 +59,14 @@ HELP_STRING = """In this game, you will guess the weather conditions and tempera
 
 4. **Feedback**:
     - Correct answers will be highlighted in green.
-    - Incorrect answers will be highlighted in red, and the correct answer will be shown.
+    - Incorrect answers will be highlighted in red, and the correct answer 
+      will be shown.
 
 5. **End of Game**:
     - After all rounds are completed, your total score will be displayed.
     - Your score will be recorded on the leaderboard.
 
-Enjoy the WeatherGuesser Game and have fun guessing the weather around\n the world!\n
+Enjoy the WeatherGuesser Game and have fun guessing the weather around\nthe world!\n
 -------------------------------------------------------------------------------------------\n"""
 
 def get_random_city_and_country():
@@ -94,7 +95,7 @@ def validate_username(username):
 # Validating the username
 def start_guesser():
     # Welcome Message
-    print("Welcome to the WeaterGuesser!")
+    print("Welcome to the WeatherGuesser!")
     print(HELP_STRING)
     input("Press 'Enter' to continue")
     clear()
