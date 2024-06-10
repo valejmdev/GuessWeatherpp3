@@ -7,6 +7,7 @@ import requests
 import random
 import time
 import os
+from operator import itemgetter
 from colorama import Fore, Style, init
 init(autoreset=True)
 import gspread
@@ -26,7 +27,12 @@ GSPREAD_Client = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_Client.open('guessweatherpp3')
 
 CITIES_LIST = SHEET.worksheet('cities_list')
+
 LEADERBOARD = SHEET.worksheet('leaderboard')
+leaderboard_values = LEADERBOARD.get_all_values()
+headers = leaderboard_values[0]
+leaderboard_data = [dict(zip(headers, row)) for row in leaderboard_values[1:]]
+SORTED_LEADERBOARD = sorted(leaderboard_data, key=lambda x: x['Highscore'], reverse=True)
 
 # OpenWeather.org API Key for Realtime Information
 API_KEY = "b092090963bc7750c270ab36f9bc42e9"
@@ -56,7 +62,8 @@ HELP_STRING = """In this game, you will guess the weather conditions and tempera
     - After all rounds are completed, your total score will be displayed.
     - Your score will be recorded on the leaderboard.
 
-Enjoy the WeatherGuesser Game and have fun guessing the weather around the world!"""
+Enjoy the WeatherGuesser Game and have fun guessing the weather around the world!\n
+-------------------------------------------------------------------------------------------\n"""
 
 def get_random_city_and_country():
     data = CITIES_LIST.get_all_values()
@@ -221,11 +228,12 @@ def update_leaderboard(username, score):
 
 
 def show_leaderboard():
-    records = LEADERBOARD.get_all_records()
-    print(Fore.YELLOW + "\nLeaderboard:" + Style.RESET_ALL)
-    print(Fore.YELLOW + "Username\tHighscore" + Style.RESET_ALL)
+    records = SORTED_LEADERBOARD
+    print(Fore.YELLOW + "\nLeaderboard:\n" + Style.RESET_ALL)
+    print(f"{'Username':<16}{'Highscore':<5}")
+    print('-' * 21)
     for record in records:
-        print(f"{record['Username']}\t{record['Highscore']}")
+        print(f"{record['Username']:<16}{record['Highscore']:<5}")
 
 
 def loading_animation(duration):
