@@ -40,7 +40,7 @@ API_KEY = "b092090963bc7750c270ab36f9bc42e9"
 # Base url for the OpenWeather API
 ROOT_URL = "http://api.openweathermap.org/data/2.5/weather?"
 
-HELP_STRING = """In this game, you will guess the weather conditions and temperature ranges for random cities around the world. Here’s how you play:
+HELP_STRING = """In this game, you will guess the weather conditions and temperature ranges\n for random cities around the world. Here’s how you play:
 
 1. **Game Rounds**:
     - The game consists of 3 rounds.
@@ -63,7 +63,7 @@ HELP_STRING = """In this game, you will guess the weather conditions and tempera
     - After all rounds are completed, your total score will be displayed.
     - Your score will be recorded on the leaderboard.
 
-Enjoy the WeatherGuesser Game and have fun guessing the weather around the world!\n
+Enjoy the WeatherGuesser Game and have fun guessing the weather around\n the world!\n
 -------------------------------------------------------------------------------------------\n"""
 
 def get_random_city_and_country():
