@@ -187,6 +187,14 @@ def update_leaderboard(username, score):
     LEADERBOARD.append_row([username, score])
 
 
+def show_leaderboard():
+    records = LEADERBOARD.get_all_records()
+    print(Fore.YELLOW + "\nLeaderboard:" + Style.RESET_ALL)
+    print(Fore.YELLOW + "Username\tHighscore" + Style.RESET_ALL)
+    for record in records:
+        print(f"{record['Username']}\t{record['Highscore']}")
+
+
 def loading_animation(duration):
     for _ in range(duration * 10):  
         print("Loading", end="")
@@ -200,7 +208,8 @@ def end_game():
     while True:
                 print("\nWhat would you like to do next?")
                 print("1. Reset game")
-                print("2. Exit")
+                print("2. Show Leaderboard")
+                print("3. Exit")
                 choice = input("Enter your choice (1 or 2):\n")
                 
                 if choice == "1":
@@ -209,6 +218,9 @@ def end_game():
                     main()
                     return
                 elif choice == "2":
+                    print("The Leaderboard...")
+                    show_leaderboard()
+                elif choice == "3":
                     # Exit the game
                     print("Exiting the game. Goodbye!")
                     return
