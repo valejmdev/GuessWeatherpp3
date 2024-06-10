@@ -7,13 +7,17 @@ import requests
 import random
 import time
 import os
+import json
 from operator import itemgetter
 from colorama import Fore, Style, init
 init(autoreset=True)
 import gspread
 from google.oauth2.service_account import Credentials
 
-init()
+init(convert=True)
+
+with open('creds.json') as f:
+    creds_data = json.load(f)
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -34,11 +38,10 @@ headers = leaderboard_values[0]
 leaderboard_data = [dict(zip(headers, row)) for row in leaderboard_values[1:]]
 SORTED_LEADERBOARD = sorted(leaderboard_data, key=lambda x: x['Highscore'], reverse=True)
 
-# OpenWeather.org API Key for Realtime Information
-API_KEY = "b092090963bc7750c270ab36f9bc42e9"
 
 # Base url for the OpenWeather API
 ROOT_URL = "http://api.openweathermap.org/data/2.5/weather?"
+API_KEY = creds_data['openweather']['API_KEY']
 
 HELP_STRING = """In this game, you will guess the weather conditions and temperature ranges\n for random cities around the world. Here’s how you play:
 
