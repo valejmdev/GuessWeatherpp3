@@ -53,6 +53,7 @@ HELP_STRING = """In this game, you will guess the weather conditions and tempera
 
 3. **Enter Your Answers**:
     - Type a number from 1 to 5 corresponding to your guess and press Enter.
+    - If you need to read these rules again, type 'help' and press Enter.
 
 4. **Feedback**:
     - Correct answers will be highlighted in green.
