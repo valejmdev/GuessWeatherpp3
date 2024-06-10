@@ -6,6 +6,7 @@
 import requests
 import random
 import time
+import os
 from colorama import Fore, Style, init
 init(autoreset=True)
 import gspread
@@ -33,6 +34,29 @@ API_KEY = "b092090963bc7750c270ab36f9bc42e9"
 # Base url for the OpenWeather API
 ROOT_URL = "http://api.openweathermap.org/data/2.5/weather?"
 
+HELP_STRING = """In this game, you will guess the weather conditions and temperature ranges for random cities around the world. Here’s how you play:
+
+1. **Game Rounds**:
+    - The game consists of 3 rounds.
+    - In each round, you will be presented with a random city and country.
+
+2. **Guess the Weather**:
+    - For each city, you will answer two questions:
+     1. **Weather Condition**:
+     2. **Temperature Range**:
+
+3. **Enter Your Answers**:
+    - Type a number from 1 to 5 corresponding to your guess and press Enter.
+
+4. **Feedback**:
+    - Correct answers will be highlighted in green.
+    - Incorrect answers will be highlighted in red, and the correct answer will be shown.
+
+5. **End of Game**:
+    - After all rounds are completed, your total score will be displayed.
+    - Your score will be recorded on the leaderboard.
+
+Enjoy the WeatherGuesser Game and have fun guessing the weather around the world!"""
 
 def get_random_city_and_country():
     data = CITIES_LIST.get_all_values()
@@ -61,14 +85,14 @@ def validate_username(username):
 def start_guesser():
     # Welcome Message
     print("Welcome to the WeaterGuesser!")
+    print(HELP_STRING)
+    input("Press 'Enter' to continue")
+    clear()
     while True:
         username = input("Enter your username (3-16 alphabetical characters): \n")
 
         if validate_username(username):
-            print("Hello, " + username + "! "
-                "Welcome again to the WeatherGuesser. "
-                "Following you will guess the weather in a "
-                "random location from all over the world!")
+            
             return username
         else:
             print(Fore.RED + "The username should contain 3 to 16 alphabetical characters only." + Style.RESET_ALL)
@@ -138,11 +162,11 @@ class Question:
 def question_creator(city_name, country_name, weather_condition, temperature_range):
         # Array for questions
         weather_prompt = [
-            "How is the weather for the day in: " + city_name +", " + country_name +
-            "\n(1) Sunny\n(2) Cloudy\n(3) Overcast\n(4) Rain/Snow\n(5) Thunderstorm",
-            "How warm is it for the day in: " + city_name +", " + country_name +
+            Fore.LIGHTWHITE_EX + "How is the weather for the day in: " + city_name +", " + country_name + Style.RESET_ALL +
+            "\n(1) Sunny\n(2) Cloudy\n(3) Overcast\n(4) Rain/Snow\n(5) Thunderstorm" ,
+            Fore.LIGHTWHITE_EX +"How warm is it for the day in: " + city_name +", " + country_name + Style.RESET_ALL  +
             "\n(1)less than 0°C\n(2) 0-10°C\n(3) 10°C-20°C\n(4) 20°C-30°C\n"
-            "(5) more than 30°C\n"
+            "(5) more than 30°C\n" 
             ]
         
 
@@ -161,20 +185,26 @@ def guess_input_validation(prompt):
         user_input = input(prompt)
         if user_input.isdigit() and user_input in ("1", "2", "3", "4", "5"):
             return user_input
+        elif user_input.isalpha() and user_input == ("help"):
+            clear()
+            print(HELP_STRING)
         else:
-            print(Fore.RED + "Please enter a number from 1-5" + Style.RESET_ALL)
+            print(Fore.RED + "Please enter a number from 1-5\n"  + Style.RESET_ALL)
 
 
     # Function of the guesser game
 def run_guesser(questions_validation):
     score = 0
     for i, question in enumerate(questions_validation, 1):
-        user_answer = guess_input_validation(f"Question {i}: {question.question}\nEnter your answer: \n")
+        my_color = Fore.WHITE
+        user_answer = guess_input_validation(Fore.LIGHTWHITE_EX + f"Question {i}: {my_color}{question.question}\nEnter your answer: \n")
         if user_answer == str(question.answer):
-            print(Fore.GREEN + "Correct!" + Style.RESET_ALL)
+            print(Fore.GREEN + "Correct!\n" + Style.RESET_ALL)
+            print("--------------------------------------------------------------------")
             score += 1
         else:
             print(Fore.RED + f"Wrong! The correct answer was {question.answer}." + Style.RESET_ALL)
+            print("--------------------------------------------------------------------")
     print(Fore.GREEN +"You got " + str(score) + '/' + str(len(questions_validation)) + " correct" + Style.RESET_ALL)
     return score 
 
@@ -206,6 +236,12 @@ def loading_animation(duration):
             time.sleep(0.1)  
         print("\r", end="") 
 
+def clear():
+    """
+    Clear function to clean-up the terminal so things don't get messy.
+    """
+    os.system("cls" if os.name == "nt" else "clear")
+
 
 def end_game():
     while True:
@@ -213,7 +249,7 @@ def end_game():
                 print("1. Reset game")
                 print("2. Show Leaderboard")
                 print("3. Exit")
-                choice = input("Enter your choice (1 or 2):\n")
+                choice = input("Enter your choice (1, 2 or 3):\n")
                 
                 if choice == "1":
                     # Reset the game by re-running the main function
@@ -221,6 +257,7 @@ def end_game():
                     main()
                     return
                 elif choice == "2":
+                    clear()
                     print("The Leaderboard...")
                     show_leaderboard()
                 elif choice == "3":
