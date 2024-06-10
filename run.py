@@ -24,7 +24,8 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_Client = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_Client.open('guessweatherpp3')
 
-cities_list = SHEET.worksheet('cities_list')
+CITIES_LIST = SHEET.worksheet('cities_list')
+LEADERBOARD = SHEET.worksheet('leaderboard')
 
 # OpenWeather.org API Key for Realtime Information
 api_key = "b092090963bc7750c270ab36f9bc42e9"
@@ -34,7 +35,7 @@ root_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 
 def get_random_city_and_country():
-    data = cities_list.get_all_values()
+    data = CITIES_LIST.get_all_values()
 
     headers = data[0]
     rows = data[1:]
@@ -174,6 +175,18 @@ def run_guesser(questions_validation):
     print(Fore.GREEN +"You got " + str(score) + '/' + str(len(questions_validation)) + " correct" + Style.RESET_ALL)
     return score 
 
+
+def update_leaderboard(username, score):
+    records = LEADERBOARD.get_all_records()
+    for record in records:
+        if record['Username'] == username:
+            if score > int(record['Highscore']):
+                record['Highscore'] = score
+                LEADERBOARD.update_cell(records.index(record) + 2, 2, score)
+            return
+    LEADERBOARD.append_row([username, score])
+
+
 def loading_animation(duration):
     for _ in range(duration * 10):  
         print("Loading", end="")
@@ -181,6 +194,7 @@ def loading_animation(duration):
             print(".", end="")
             time.sleep(0.1)  
         print("\r", end="") 
+
 
 def end_game():
     while True:
@@ -221,6 +235,7 @@ def main():
             print(Fore.RED + "Could not retrieve weather data for this round." + Style.RESET_ALL)
     
     print(Fore.GREEN + f"\nGame Over! {username}, your total score is: {total_score}/{rounds * 2}" + Style.RESET_ALL)
+    update_leaderboard(username, total_score)
     end_game()
 
 # Run the main function
