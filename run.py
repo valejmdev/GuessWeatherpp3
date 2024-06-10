@@ -10,11 +10,10 @@ import os
 import json
 from operator import itemgetter
 from colorama import Fore, Style, init
-init(autoreset=True)
 import gspread
 from google.oauth2.service_account import Credentials
 
-init(convert=True)
+init(autoreset=True)
 
 with open('creds.json') as f:
     creds_data = json.load(f)
@@ -25,7 +24,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-CREDS = Credentials.from_service_account_file('creds.json')
+CREDS = Credentials.from_service_account_info(creds_data['gspread'])
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_Client = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_Client.open('guessweatherpp3')
