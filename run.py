@@ -171,7 +171,10 @@ def run_guesser(questions_validation):
     for i, question in enumerate(questions_validation, 1):
         user_answer = guess_input_validation(f"Question {i}: {question.question}\nEnter your answer: \n")
         if user_answer == str(question.answer):
+            print(Fore.GREEN + "Correct!" + Style.RESET_ALL)
             score += 1
+        else:
+            print(Fore.RED + f"Wrong! The correct answer was {question.answer}." + Style.RESET_ALL)
     print(Fore.GREEN +"You got " + str(score) + '/' + str(len(questions_validation)) + " correct" + Style.RESET_ALL)
     return score 
 
