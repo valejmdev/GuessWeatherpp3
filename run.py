@@ -28,10 +28,10 @@ CITIES_LIST = SHEET.worksheet('cities_list')
 LEADERBOARD = SHEET.worksheet('leaderboard')
 
 # OpenWeather.org API Key for Realtime Information
-api_key = "b092090963bc7750c270ab36f9bc42e9"
+API_KEY = "b092090963bc7750c270ab36f9bc42e9"
 
 # Base url for the OpenWeather API
-root_url = "http://api.openweathermap.org/data/2.5/weather?"
+ROOT_URL = "http://api.openweathermap.org/data/2.5/weather?"
 
 
 def get_random_city_and_country():
@@ -81,7 +81,7 @@ def api_call():
         return None, None, None, None
     
     # Building url for testing api call
-    url = f"{root_url}appid={api_key}&q={city_name}"
+    url = f"{ROOT_URL}appid={API_KEY}&q={city_name}"
 
     # Sending a get request at the url
     r = requests.get(url)
