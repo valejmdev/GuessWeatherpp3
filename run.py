@@ -231,11 +231,15 @@ def update_leaderboard(username, score):
 
 
 def show_leaderboard():
-    records = SORTED_LEADERBOARD
+    leaderboard_values = LEADERBOARD.get_all_values()
+    headers = leaderboard_values[0]
+    leaderboard_data = [dict(zip(headers, row)) for row in leaderboard_values[1:]]
+    sorted_leaderboard = sorted(leaderboard_data, key=lambda x: (int(x['Highscore']), x['Username']), reverse=True)
+
     print(Fore.YELLOW + "\nLeaderboard:\n" + Style.RESET_ALL)
     print(f"{'Username':<16}{'Highscore':<5}")
     print('-' * 21)
-    for record in records:
+    for record in sorted_leaderboard:
         print(f"{record['Username']:<16}{record['Highscore']:<5}")
 
 
