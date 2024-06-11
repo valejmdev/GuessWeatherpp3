@@ -76,8 +76,13 @@ the world!\n
 """
 
 
-# Function to get a random city with it's Country from the Cities List
 def get_random_city_and_country():
+    """
+    Function to get a city with it's corresponding country, from the
+    google spreasheet cities list by converting it into a dictionary.
+    The city is chosen randomly with the python random method.
+    """
+
     data = CITIES_LIST.get_all_values()
 
     headers = data[0]
@@ -89,8 +94,12 @@ def get_random_city_and_country():
     return random_city, random_country
 
 
-# Validation Rules for the username
 def validate_username(username):
+    """
+    Function to create validation rules for the username, so
+    that the user can only use alphabetical characters,
+    not less than 3 and not more than 16 characters.
+    """
     if not username.isalpha():
         return False
     if len(username) < 3 or len(username) > 16:
@@ -98,8 +107,12 @@ def validate_username(username):
     return True
 
 
-# Validating the username
 def start_guesser():
+    """
+    This is a function that greets the user and instructs him with a simple
+    tutorial. After pressing the "Enter" key the user is asked to enter
+    an username, that meets the validation rules above.
+    """
     # Welcome Message
     print("Welcome to the WeatherGuesser!")
     print(HELP_STRING)
@@ -116,12 +129,21 @@ def start_guesser():
                   " alphabetical characters only." + Style.RESET_ALL)
 
 
-# Function to get the information of the chosen City from Open Weather API
 def api_call():
+    """
+    This function sends the randomly chosen city to the
+    OpenWeather API. Then the function takes the current weather
+    conditon and current temperature of that city and
+    summarizes it to a value that can be guessed more easily.
+    If there is a issue with any of the requests or information,
+    the user will be informed, that an error has occured, but
+    the game will still run.
+    """
     # City name input for testing
     city_name, country_name = get_random_city_and_country()
     if city_name is None or country_name is None:
         return None, None, None, None
+
     # Building url for testing api call
     url = f"{ROOT_URL}appid={API_KEY}&q={city_name}"
 
@@ -164,6 +186,7 @@ def api_call():
             temperature_range = "5"
         return weather_condition, temperature_range, city_name, country_name
     else:
+        # print statement in case of any request error
         print(Fore.RED + "Something went wrong... Please try again..." +
               Style.RESET_ALL)
         return None, None, None
@@ -176,9 +199,15 @@ class Question:
         self.answer = answer
 
 
-# Function that takes Information from City List to show the Question
 def question_creator(city_name, country_name, weather_condition,
                      temperature_range):
+    """
+    This function takes the random city and its corresponding
+    country, to include them in the question. It also shows
+    the user the possible guess values and how to guess them.
+    It creates two rounds, in the first you are asked for the
+    weather condition and the secont for the temperature.
+    """
     # Array for questions
     weather_prompt = [
         Fore.LIGHTWHITE_EX + "How is the weather for the day in: " +
@@ -199,8 +228,14 @@ def question_creator(city_name, country_name, weather_condition,
     return questions_validation
 
 
-# Validation the answer given by the user
 def guess_input_validation(prompt):
+    """
+    This function creates the validation rules for the input
+    of the user in the guesser game part. Here the users is limited
+    to the usage of the numbers 1-5 and the word 'help'.
+    If the input is 'help' the user will see the Tutorial Text from
+    the beginning again and can still play the round.
+    """
     while True:
         user_input = input(prompt)
         if user_input.isdigit() and user_input in ("1", "2", "3", "4", "5"):
@@ -213,8 +248,15 @@ def guess_input_validation(prompt):
                   + Style.RESET_ALL)
 
 
-# Function of the guesser game creating the game loop
 def run_guesser(questions_validation):
+    """
+    This function creates the gameloop combining the questions and
+    corresponding answers with the input validation. It creates
+    multiple rounds, so that more than one question can be displayed.
+    With a input that meets the validation rules above, the user
+    gets an direct and visual feedback to their guess, even showing
+    the right answer, when guessed wrong.
+    """
     score = 0
     for i, question in enumerate(questions_validation, 1):
         my_color = Fore.WHITE
@@ -235,8 +277,14 @@ def run_guesser(questions_validation):
     return score
 
 
-# Function that updates the users Highscore to the Leaderboard
 def update_leaderboard(username, score):
+    """
+    This function updates the users username and total score to
+    the leaderboard. It also checks if the username is already
+    existing in the leaderboard. If that is the case the score
+    only gets updated, when the total score is higher than the
+    recorded one.
+    """
     records = LEADERBOARD.get_all_records()
     for record in records:
         if record['Username'] == username:
@@ -247,8 +295,14 @@ def update_leaderboard(username, score):
     LEADERBOARD.append_row([username, score])
 
 
-# Function that displays the Leaderboard always updated
 def show_leaderboard():
+    """
+    This function displays the leaderboard of the google
+    spreadsheet. It not only formats it to please the eye,
+    but also sorts it for the highest score to the lowest.
+    It always takes the updated information as soon as it is
+    called.
+    """
     leaderboard_values = LEADERBOARD.get_all_values()
     headers = leaderboard_values[0]
     leaderboard_data = [dict(zip(headers, row
@@ -266,6 +320,13 @@ def show_leaderboard():
 
 # Function for visual Loading animation to prevent API errors
 def loading_animation(duration):
+    """
+    This function creates a visual Loading animation to
+    give the API requests enough time to take the random
+    city and respond with the current weather information.
+    It also creates suspense and gives a interactive notion
+    to the application.
+    """
     for _ in range(duration * 10):
         print("Loading", end="")
         for _ in range(3):
@@ -283,6 +344,11 @@ def clear():
 
 # Function to give user the
 def end_game():
+    """
+    This function gives the user the option to input 1-3 to
+    either reset the game to start new, show the leaderboard or exit
+    the game, which closes the application.
+    """
     while True:
         print("\nWhat would you like to do next?")
         print("1. Reset game")
@@ -309,6 +375,13 @@ def end_game():
 
 # Calling guesser game function and creating the game loop
 def main():
+    """
+    This is the main function that uses all the functions
+    created above in a logic order. It also creates a loop
+    that let's the user guess for 3 different cities.
+    It has an error handling message and is called at the end
+    of my python file.
+    """
     username = start_guesser()
     total_score = 0
     rounds = 3
