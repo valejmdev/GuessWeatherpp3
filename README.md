@@ -19,7 +19,7 @@ This project was created as part of Code Institute's Full Stack Software Develop
 ## Contents
 
 * [User Experience](#user-experience)
-   * [User Benefits](#user -benefits)
+   * [User Benefits](#user-benefits)
    * [User Stories](#user-stories)
    * [Program Flowchart](#program-flowchart)
 * [Technologies Used](#technologies-used)
