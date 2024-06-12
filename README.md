@@ -153,7 +153,6 @@ Alex is a tech-savvy software developer who enjoys coding, gaming, and solving p
 
 
 ### Program Flowchart
-# Screenshot
 ![Programm Flowchart](/assets/readmescreenshots/programmflowchartguessweather.png)
 
 The flowchart provides a detailed visualization of the user journey through the Guess Weather App. Here's a step-by-step explanation of the flow, along with the significance of the color codes used:
