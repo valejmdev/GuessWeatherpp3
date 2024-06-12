@@ -377,6 +377,7 @@ https://pep8ci.herokuapp.com/#
 | Tried OpenWeatherMap 3.0 OneCall API, but was asked for a subscription, so i used 2.5 API from  the YouTube tutorial mentioned below| &#10003; |
 | Had to convert spreadsheet into dict to sort the leaderboard | &#10003; |
 | Leaderboard update didn't work in round, only after closing and rerunning game I get the update shown | &#10003; |
+| Add Function that gets the random city to the top to prevent timeout issues with API | &#10003; |
 
 ## Deployment
 The Guess Weather App was developed using Gitpod for code creation and file management. The project files, code, and related information are hosted on GitHub
