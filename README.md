@@ -11,8 +11,9 @@ This project was created as part of Code Institute's Full Stack Software Develop
 
 
 ## The Weather Guesser
-# Screenshot
-![I Am Responsive]()
+
+![I Am Responsive](/assets/readmescreenshots/amiresponsiveguessweather.png)
+
 ### View the live website [here](https://guessweatherpp3-45effae546b9.herokuapp.com)
 ***
 ## Table of content: 
@@ -166,39 +167,49 @@ Alex is a tech-savvy software developer who enjoys coding, gaming, and solving p
 -	 **StackEdit** [For creating the README.md.](https://stackedit.io/)
 ***
 ## Features: 
-# Screenshot
 -   **Tutorial Introduction:**
     -   Greets the user and gives him a brief tutorial how to play the game.
-# Screenshot
+
+![Screenshot of Introduction/Help Text](/assets/readmescreenshots/introductiononeguessweather.PNG)
+![Screenshot of Introduction/Help Text part 2](/assets/readmescreenshots/introductiontwoguessweather.png)
+
 -   **Username Validation:**
     -   Ensures the entered username is between 3 to 16 alphabetical characters.
-# Screenshot
+
+![Screenshot of username correct validation](/assets/readmescreenshots/usernameinputguessweather.png)
+![Screenshot of username wrong validation](/assets/readmescreenshots/usernameinputvalidationguessweather.png)
 -   **Weather Data Fetching:**
     -   Uses OpenWeather API to fetch real-time weather data for random cities.
-# Screenshot
+
 -   **Question Generation:**
     -   Creates weather-related questions based on the fetched data.
-# Screenshot
+
 -   **Interactive Gameplay:**
     -   Users answer questions about the weather, scoring points for correct answers.
     -   Feedback is provided on the correctness of each answer, with correct answers highlighted in green and 		incorrect ones in red.
-# Screenshot
+
+![Screenshot of username wrong validation](/assets/readmescreenshots/roundoneguessweather.png.png)
 -   **Scoring System:**
     -   Tracks and updates the total score across multiple rounds.
-# Screenshot
+
+![Screenshot of username wrong validation](/assets/readmescreenshots/totalscoreendgameguessweather.png)
 -   **Leaderboard:**
     -   Stores and displays high scores, sorted by score and alphabetically by username for ties.
     -   Provides real-time updates to the leaderboard after each game.
-# Screenshot
+
+![Screenshot of username wrong validation](/assets/readmescreenshots/leaderboardguessweather.png)
 -   **Game Options:**
     -   Allows users to reset the game, view the leaderboard, or exit the game after completing the rounds.
-# Screenshot
+
+![Screenshot of the game option](/assets/readmescreenshots/gameoptionguessweather.png)
 -   **User Feedback:**
     -   Uses color-coded messages (via Colorama) to enhance user experience.
-# Screenshot
+
+![Screenshot of the correct guess feedback the user receives](/assets/readmescreenshots/correctanswervalidationguessweather.png)
+![Screenshot of the wrong guess feedback the user receives](/assets/readmescreenshots/wronganswervalidationguessweather.png)
 -   **Loading Animation:**
     -   Displays a loading animation while fetching weather data to enhance user engagement.
-
+![Screenshot of the loading animation](/assets/readmescreenshots/loadinganimationguessweather.png)
 ## Python Packages Used
 The Weather Guesser application relies on the following Python packages for its functionality:
 
