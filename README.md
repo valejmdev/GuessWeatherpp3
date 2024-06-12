@@ -178,6 +178,7 @@ Alex is a tech-savvy software developer who enjoys coding, gaming, and solving p
 
 ![Screenshot of username correct validation](/assets/readmescreenshots/usernameinputguessweather.png)
 ![Screenshot of username wrong validation](/assets/readmescreenshots/usernameinputvalidationguessweather.png)
+
 -   **Weather Data Fetching:**
     -   Uses OpenWeather API to fetch real-time weather data for random cities.
 
@@ -189,27 +190,34 @@ Alex is a tech-savvy software developer who enjoys coding, gaming, and solving p
     -   Feedback is provided on the correctness of each answer, with correct answers highlighted in green and 		incorrect ones in red.
 
 ![Screenshot of username wrong validation](/assets/readmescreenshots/roundoneguessweather.png.png)
+
 -   **Scoring System:**
     -   Tracks and updates the total score across multiple rounds.
 
 ![Screenshot of username wrong validation](/assets/readmescreenshots/totalscoreendgameguessweather.png)
+
 -   **Leaderboard:**
     -   Stores and displays high scores, sorted by score and alphabetically by username for ties.
     -   Provides real-time updates to the leaderboard after each game.
 
 ![Screenshot of username wrong validation](/assets/readmescreenshots/leaderboardguessweather.png)
+
 -   **Game Options:**
     -   Allows users to reset the game, view the leaderboard, or exit the game after completing the rounds.
 
 ![Screenshot of the game option](/assets/readmescreenshots/gameoptionguessweather.png)
+
 -   **User Feedback:**
     -   Uses color-coded messages (via Colorama) to enhance user experience.
 
 ![Screenshot of the correct guess feedback the user receives](/assets/readmescreenshots/correctanswervalidationguessweather.png)
 ![Screenshot of the wrong guess feedback the user receives](/assets/readmescreenshots/wronganswervalidationguessweather.png)
+
 -   **Loading Animation:**
     -   Displays a loading animation while fetching weather data to enhance user engagement.
+
 ![Screenshot of the loading animation](/assets/readmescreenshots/loadinganimationguessweather.png)
+
 ## Python Packages Used
 The Weather Guesser application relies on the following Python packages for its functionality:
 
@@ -234,12 +242,16 @@ These packages, along with their respective versions, are listed in the `require
 
 ## Data Storage
 The Weather Guesser app employs Google Sheets for effective data storage and management. Here’s how the data is organized and utilized within the app:
-# Screenshot
+
 1.  **City and Country List:**
     -   A worksheet named `cities_list` contains a comprehensive list of cities along with their respective countries. This data is essential for randomly selecting a city for each game round, ensuring a diverse and engaging user experience.
-# Screenshot
+
+![Screenshot of city list in spreadsheet](/assets/readmescreenshots/citieslistguessweather.png)
+
 2.  **Leaderboard:**
     -   Usernames and their corresponding high scores are stored in a worksheet named `leaderboard`. This feature tracks each player’s highest score, allowing the app to display a dynamic and up-to-date leaderboard showcasing the top performers.
+
+![Screenshot of leaderboard in spreadsheet](/assets/readmescreenshots/leaderboardsheetsguessweather.png)
 
 ### Data Handling and Privacy
 
