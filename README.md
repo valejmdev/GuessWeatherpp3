@@ -23,22 +23,22 @@ This project was created as part of Code Institute's Full Stack Software Develop
    * [User Benefits](#user-benefits)
    * [User Stories](#user-stories)
    * [Program Flowchart](#program-flowchart)
-* [Technologies Used](#technologies-used)
-* [Data Storage](#data-storage-google-sheets)
 * [Features](#features)
    * [Username Validation](#username-validation)
    * [Weather Data Fetching](#weather-data-fetching)
-   * [Interactive Gameplay](#interactive-gamepla)
+   * [Interactive Gameplay](#interactive-gameplay)
    * [Scoring System](#scoring-system)
    * [Leaderboard](#leaderboard)
    * [Game Options](#game-options)
    * [User Feedback](#user-feedback)
    * [Loading Animation](#loading-animation)
+* [Technologies Used](#technologies-used)
+* [Data Storage](#data-storage)
 * [Python Packages Used](#python-packages-used)
 * [Testing](#testing)
    * [Python PEP8 Validation](#python-pep8-validation)
    * [Development Bugs](#development-bugs)
-* [Deployment and Development](#deployment-and-development)
+* [Deployment](#deployment)
    * [Deploying the App](#deploying-the-app)
    * [Forking The Repository](#forking-the-repository)
    * [Cloning The Repository](#cloning-the-repository)
@@ -231,16 +231,6 @@ The flowchart provides a detailed visualization of the user journey through the 
 - Orange: Display scores and leaderboards.
 
 
-## Technologies Used: 
--   **Python:** For backend logic and API interactions.
--   **Google Sheets API:** For storing and displaying the leaderboard.
--   **Colorama:** For color-coded terminal outputs.
--   **gspread:** For interacting with Google Sheets.
- -   **OpenWeather API:** [To fetch real-time weather data.]()
--   **Heroku:** [For deploying the application.]()
--	**Whimsical:** [For creating the program flowchart.]()
--	 **StackEdit** [For creating the README.md.](https://stackedit.io/)
-***
 ## Features: 
 ### Tutorial Introduction:
 - Greets the user and gives him a brief tutorial how to play the game.
@@ -293,27 +283,17 @@ The flowchart provides a detailed visualization of the user journey through the 
 
 ![Screenshot of the loading animation](/assets/readmescreenshots/loadinganimationguessweather.png)
 
-## Python Packages Used
-The Weather Guesser application relies on the following Python packages for its functionality:
 
--   **requests:** Used for making HTTP requests to fetch weather data from the OpenWeather API.
-    
--   **random:** Utilized for generating random elements, such as selecting a random city for the game.
-    
--   **time:** Used for adding delays, such as simulating a loading animation or waiting for API responses.
-    
--   **os:** Enables interaction with the operating system, facilitating tasks like file operations.
-    
--   **json:** Used for parsing JSON data returned from API requests.
-    
--   **colorama:** Provides support for colored terminal text, enhancing the visual presentation of the application.
-    
--   **gspread:** Allows interaction with Google Sheets, used for storing and updating the leaderboard data.
-    
--   **google.oauth2.service_account:** Required for authenticating access to Google Sheets using a service account.
-
-These packages, along with their respective versions, are listed in the `requirements.txt` file for easy installation using pip.
-
+## Technologies Used: 
+-   **Python:** For backend logic and API interactions.
+-   **Google Sheets API:** For storing and displaying the leaderboard.
+-   **Colorama:** For color-coded terminal outputs.
+-   **gspread:** For interacting with Google Sheets.
+ -   **OpenWeather API:** [To fetch real-time weather data.]()
+-   **Heroku:** [For deploying the application.]()
+-	**Whimsical:** [For creating the program flowchart.]()
+-	 **StackEdit** [For creating the README.md.](https://stackedit.io/)
+***
 
 ## Data Storage
 The Weather Guesser app employs Google Sheets for effective data storage and management. Here’s how the data is organized and utilized within the app:
@@ -344,6 +324,27 @@ The Weather Guesser app employs Google Sheets for effective data storage and man
     -   Access to the Google Sheets API is managed through OAuth2, with restricted scopes to limit access to only necessary operations. This enhances the security of data interactions within the app.
 
 
+## Python Packages Used
+The Weather Guesser application relies on the following Python packages for its functionality:
+
+-   **requests:** Used for making HTTP requests to fetch weather data from the OpenWeather API.
+    
+-   **random:** Utilized for generating random elements, such as selecting a random city for the game.
+    
+-   **time:** Used for adding delays, such as simulating a loading animation or waiting for API responses.
+    
+-   **os:** Enables interaction with the operating system, facilitating tasks like file operations.
+    
+-   **json:** Used for parsing JSON data returned from API requests.
+    
+-   **colorama:** Provides support for colored terminal text, enhancing the visual presentation of the application.
+    
+-   **gspread:** Allows interaction with Google Sheets, used for storing and updating the leaderboard data.
+    
+-   **google.oauth2.service_account:** Required for authenticating access to Google Sheets using a service account.
+
+These packages, along with their respective versions, are listed in the `requirements.txt` file for easy installation using pip.
+
 ## Testing
 I conducted extensive manual testing of the Weather Guesser application to ensure its functionality and reliability. Here's an overview of the testing process and outcomes:
 
@@ -361,7 +362,7 @@ During the development in VS Code i used the autopep8 and Flake8 Extensions. Due
 I also validated the Code via the CI Python Linter
 https://pep8ci.herokuapp.com/#
 
-# Screenshot
+![Screenshot of PEP8 Validation](/assets/readmescreenshots/pep8validationguessweather.png)
 
 ## Development Bugs
 
