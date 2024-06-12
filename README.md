@@ -154,7 +154,83 @@ Alex is a tech-savvy software developer who enjoys coding, gaming, and solving p
 
 ### Program Flowchart
 # Screenshot
-![Programm Flowchart]()
+![Programm Flowchart](/assets/readmescreenshots/programmflowchartguessweather.png)
+
+The flowchart provides a detailed visualization of the user journey through the Guess Weather App. Here's a step-by-step explanation of the flow, along with the significance of the color codes used:
+
+**Start (Yellow)**
+
+-   The app begins by displaying a welcome message to the user.
+
+**Tutorial Text Display (Blue)**
+
+- A brief tutorial is shown to guide the user on how to play the game.
+- The user presses Enter to proceed.
+
+**Request Username (Green)**
+
+- The app prompts the user to enter a username.
+
+**Username Validation (Red)**
+
+- The entered username is checked for validity.
+- If invalid, the user is prompted again.
+
+**Game Initialization (Yellow)**
+
+- Upon valid username entry, the game initializes and selects the first city.
+
+**First Question (Green)**
+
+- The user is asked to guess the weather for the first city.
+
+**Guess Validation (Red)**
+
+- The user's guess is validated and feedback is provided.
+- If incorrect, the user is asked to guess again.
+
+**Second Question (Green)**
+
+- The next weather question is presented, and the process of guessing and validation continues.
+
+**Next Round (Yellow)**
+
+- The game proceeds to the next round with a new city and question.
+
+**All Rounds Complete? (Red)**
+
+- The app checks if all rounds are complete.
+
+**Display Total Score (Orange)**
+
+- If all rounds are complete, the total score is displayed.
+
+**End Game Options (Green)**
+
+- The user is given options to restart the game, view the leaderboard, or exit.
+
+**Display Leaderboard (Orange)**
+
+- If the user chooses, the leaderboard is displayed showing rankings.
+
+**End Program (Pink)**
+
+- If the user opts to exit, the program ends.
+
+**Restart Game (Green)**
+
+- If the user chooses to restart, the game reinitializes from the beginning.
+
+
+**Color Code Significance:**
+
+- Yellow: Steps that involve initialization and significant transitions.
+- Blue: Informational displays such as tutorials.
+- Green: User input stages and core game interaction steps like questions and answers.
+- Pink: Show the termination steps.
+- Red: Validation process and decision points that direct the flow based on game completion.
+- Orange: Display scores and leaderboards.
+
 
 ## Technologies Used: 
 -   **Python:** For backend logic and API interactions.
